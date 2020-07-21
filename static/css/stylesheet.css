@@ -1,0 +1,64 @@
+h1 {
+    color: darkblue;
+    font-family: Helvetica;
+    font-size: 64px!important;
+    font-weight: 900!important;
+    padding-bottom: 41px;
+}
+
+.center {
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+    width: 580px;
+    padding-top: 172px;
+}
+
+.search-div {
+    padding-bottom: 17px;
+    padding-top: 48px;
+
+    height: 40px;
+    border-radius: 15px;
+    /*border: 1px gray solid;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+    padding: 5px 5px 5px 37px;
+}
+
+.search-bar {
+    width: 100%;
+    /*border-radius: 0px;*/
+    border: 1px transparent solid;
+    outline:none;
+}
+
+.corner {
+    position: relative;
+
+    height: 20px;
+    width: 20px;
+    z-index: 10;
+    border-radius: 10px;
+    border: none;
+    background: #000; /* Set the bg image here. with "no-repeat" */
+}
+
+.buttons-div {
+    display: block;
+    padding-top: 25px;
+}
+
+.button-div {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top: 25px;
+}
+
+.btn {
+    padding-left: 50px;
+    border: black;
+    margin-left: 15px;
+}
+
+
+
