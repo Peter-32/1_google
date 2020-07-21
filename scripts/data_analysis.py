@@ -10,24 +10,24 @@ warnings.filterwarnings("ignore")
 import re
 from numpy.random import seed
 from pandas import read_csv
-# import nltk
-# import spacy
-# from os import path
-# import networkx as nx
-# import numpy as np
-# import pyperclip as clip
+import nltk
+import spacy
+from os import path
+import networkx as nx
+from numpy import array
 
-# from nltk.corpus import wordnet as wn
-# from nltk.tokenize import word_tokenize
-# from scipy.spatial.distance import pdist, squareform
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from nltk.corpus import wordnet as wn
+from nltk.tokenize import word_tokenize
+from scipy.spatial.distance import pdist, squareform
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 # Set seed
 seed(32)
 project_path = "/Users/petermyers/Desktop/high_quality_programs/1_google/"
 raw_file_path = project_path + "data_raw/customer_support.csv"
 interim_file_path1 = project_path + "data_interim/customer_support.csv"
+output_file = project_path + "data_output/result.txt"
 
 if os.path.exists(interim_file_path1):
     print("Reading CSV")
@@ -87,7 +87,7 @@ for sent in processed_sents:
 
 # Sentence Similarity
 print("Progress: 60%")
-sent_vectors = np.array(sent_vectors)
+sent_vectors = array(sent_vectors)
 sent_vectors = StandardScaler().fit_transform(sent_vectors)
 sent_vectors = MinMaxScaler().fit_transform(sent_vectors)
 distances = pdist(sent_vectors, metric='euclidean')
@@ -97,5 +97,7 @@ sentence_similarity_matrix = squareform(distances)
 print("Progress: 80%")
 graph = nx.from_numpy_array(sentence_similarity_matrix)
 scores = nx.pagerank(graph)
-clip.copy("\n\n".join([sents[score] for score in [x for (x,y) in sorted([(x,y) for (x,y) in scores.items()], key= lambda x: float(x[1]), reverse=True)]]))
-print("Done - results are in the clipboard")
+
+result = "\n\n".join([sents[score] for score in [x for (x,y) in sorted([(x,y) for (x,y) in scores.items()], key= lambda x: float(x[1]), reverse=True)]])
+with open('file_path', 'w') as file:
+    file.write(result)
