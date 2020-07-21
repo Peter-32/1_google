@@ -36,7 +36,9 @@ if os.path.exists(interim_file_path1):
 else:
     doc = read_csv(raw_file_path)
     doc = doc.loc[doc['inbound']]
+    doc['text'].fillna('', inplace=True)
     doc['text'] = doc['text'].apply(lambda x: re.sub(r'(@[A-Za-z0-9_]*) ', '', str(x)))
+    doc['text'] = doc['text'].apply(lambda x: x.replace(',', ';').replace('\n', '').replace('\r', ''))
     # doc = doc[['tweet_id', 'text']]
     doc.to_csv(interim_file_path1, index=False)
 
