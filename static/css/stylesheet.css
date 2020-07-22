@@ -20,9 +20,15 @@ h1 {
 
     height: 40px;
     border-radius: 15px;
-    /*border: 1px gray solid;*/
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+    border: 1px #D3D3D3 solid;
     padding: 5px 5px 5px 37px;
+    background-image: url('/static/css/searchicon.png');
+    background-position: 10px 9px;
+    background-repeat: no-repeat;
+}
+
+.search-div:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
 }
 
 .search-bar {
@@ -59,6 +65,3 @@ h1 {
     border: black;
     margin-left: 15px;
 }
-
-
-

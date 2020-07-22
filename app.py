@@ -5,7 +5,8 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 app = Flask(__name__)
 
-if app.config["DEBUG"]:
+if True:
+# if app.config["DEBUG"]:
     @app.after_request
     def after_request(response):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
@@ -15,7 +16,7 @@ if app.config["DEBUG"]:
 
 @app.route('/')
 def hello_world():
-    return flask.render_template('index.html', name='abc')
+    return flask.render_template('index.html', name='')
 
 @app.route('/search', methods=['POST'])
 def search():
