@@ -31,17 +31,30 @@ output_file = project_path + "data_output/result.txt"
 
 if os.path.exists(interim_file_path1):
     print("Reading CSV")
-    doc = read_csv(interim_file_path1)
+    doc = read_csv(interim_file_path1, nrows=500)
+    print(doc.shape)
     print("Finished reading CSV")
 else:
+    print("Reading Raw CSV")
     doc = read_csv(raw_file_path)
+    print("Subsetting 1")
     doc = doc.loc[doc['inbound']]
+    print("Filling NA")
     doc['text'].fillna('', inplace=True)
+    print("Transform 1")
     doc['text'] = doc['text'].apply(lambda x: re.sub(r'(@[A-Za-z0-9_]*) ', '', str(x)))
+    print("Transform 2")
     doc['text'] = doc['text'].apply(lambda x: x.replace(',', ';').replace('\n', '').replace('\r', ''))
-    # doc = doc[['tweet_id', 'text']]
+    print("Subsetting 2")
+    doc['text_length'] = doc['text'].apply(lambda x: len(str(x)))
+    doc = doc.loc[doc['text_length'] >= 20]
+    doc.drop(['text_length'], axis='columns', inplace=True)
+    print("To CSV")
+    print(doc.shape)
     doc.to_csv(interim_file_path1, index=False)
 
+print("Checking keyword")
+doc = doc.loc[doc['text'].str.contains("(?i)wifi")]
 doc = " ".join(doc['text'].values.flatten())
 
 
@@ -101,5 +114,5 @@ graph = nx.from_numpy_array(sentence_similarity_matrix)
 scores = nx.pagerank(graph)
 
 result = "\n\n".join([sents[score] for score in [x for (x,y) in sorted([(x,y) for (x,y) in scores.items()], key= lambda x: float(x[1]), reverse=True)]])
-with open('file_path', 'w') as file:
+with open('file_path2', 'w') as file:
     file.write(result)

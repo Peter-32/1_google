@@ -1,0 +1,3 @@
+Run again.  Find the max you should run the page rank algorithm for, and subset at that length.
+Place the code into the search code.  Run it from Flask.  Ship it.  Place it on a website hosted for free.
+Update blogpost and have a link to it.
